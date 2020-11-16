@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="zh-tw"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /><meta http-equiv="X-UA-Compatible" content="ie=edge">
+<style>
+*,html{margin:0;padding:0;font-size:1.1em;background:#aaa;}
+h3,div{padding:0.2em;}
+div.mod_title{background:#999;color:#ccc;font-size:1.5em;padding:0.5em;text-align:center;border-top:solid 1px #aaa;}
+div.mod_title_on{background:#333;color:#efefef;}
+h3.on,div.on{background:#ff0;}
+h3.func_btn{border-radius:10px 10px 0px 0px;padding:0.5em;}
+div.invisible{display:none;}
+div.func_desc{padding:0px;margin-bottom:10px;}
+.func_desc3,.func_desc2,.func_desc1{color:#ccc;background:#666;padding:0.5em;}
+.desc_sub_title{padding:0.3em;font-size:0.9em;background:#333;border-radius:0.5em;margin:1em;}
+.func_desc3{border-radius:0px 0px 10px 10px;}
+</style>
+</head><body>
+<script>
+func_re_dict={
+    "找圖":['Gui.py', "找圖(img_url,seek_mode='infinite')", "seek_mode若為'infinite'就會一直等，若為數字字串則會等N秒，例如seek_mode='2'會等圖2秒後跳出無限廻圈", "g.seek_img_and_click(img_url,seek_mode='infinite')"],
+    "點滑鼠":['Gui.py', "點滑鼠(x_pos,y_pos,click_num=1,sec_between=0.2,btn='left')", '點滑鼠函式說明', "g.mouse_click(x_pos,y_pos,click_num=1,sec_between=0.2,btn='left')"],
+    "移動滑鼠":['Gui.py', "移動滑鼠(tx,ty,dur=1,coord='abs')", '移動滑鼠(x,y,秒數,絕對或相對座標)', "g.mouse_move(tx,ty,dur=1,coord='abs')"],
+    "拖拉滑鼠":['Gui.py', "拖拉滑鼠(tx,ty,dur=1,coord='abs',button='left')", '拖拉滑鼠(x,y,秒數,絕對或相對座標,左鍵或右鍵)', "g.mouse_drag(tx,ty,dur=1,coord='abs',button='left')"],
+    "滑鼠中鍵":['Gui.py', '滑鼠中鍵(amount_to_scroll,scroll_x=0,scroll_y=0)', 'amount_to_scroll正值往上滾動負值往下滾動', 'g.mouse_scroll(amount_to_scroll,scroll_x=0,scroll_y=0)'],
+    "按組合鍵":['Gui.py', '按組合鍵(tmp_hot_key,tmp_key)', '按組合鍵函式說明', 'g.combo_key(tmp_hot_key,tmp_key)'],
+    "按鍵":['Gui.py', '按鍵(tmp_key,repeat=1)', '按鍵函式說明', 'g.press_key(tmp_key,repeat=1)'],
+    "按連續鍵":['Gui.py', '按連續鍵(tmp_str,sec_between=0)', '按連續鍵函式說明', 'g.typewrite(tmp_str,sec_between=0)'],
+    "彈出訊息":['Gui.py', "彈出訊息(tmp_msg,tmp_title='MESSAGE')", '彈出函式說明', "g.alert_msg(tmp_msg,tmp_title='MESSAGE')"],
+    "複制到暫存區":['Gui.py', '複制到暫存區(tmp_str)', '複制到暫存區函式說明', 'g.copy_to_clipboard(tmp_str)'],
+    "當前時間":['Gui.py', '當前時間(t_str="%Y%m%d%H%M%S")', '### 傳回當前日期時間，可用t_str決定輸出的日期時間格式，若t_str為空白則直接輸出年月日時分秒。<br/> exam: YYYYmmddHHmmss 20201023083159 ###', 'g.current_date_time(t_str="%Y%m%d%H%M%S")'],
+    "當前滑鼠XY":['Gui.py', '當前滑鼠XY()', '傳回當前滑鼠XY座標，例如:x,y=當前滑鼠XY()', 'g.mouse_xy()'],
+    "螢幕解析度":['Gui.py', '螢幕解析度()', '### 傳回螢幕[width,height] exam: w,h=螢幕解析度() ###', 'g.screen_resolution()'],
+    "螢幕截圖":['Gui.py', "螢幕截圖(save_loc='圖檔名稱')", "將當前螢幕截圖，若無'圖檔名稱'則傳回螢幕截圖的圖資，可供PIL作後續處理", "g.print_screen(save_loc='')"],
+    "找視窗":['WindowMgr.py', '找視窗(wildcard)', '找到標題內含wildcard字串的視窗', 'w.find_window_wildcard( wildcard)'],
+    "設cmd標題":['WindowMgr.py', '設cmd標題(cmd_title)', '設置cmd視窗的標題', 'w.set_cmd_title(cmd_title)'],
+    "設為前景":['WindowMgr.py', '設為前景()', '將目標視窗設為前景', 'w.set_foreground()'],
+    "調視窗":['WindowMgr.py', "調視窗(tmp_window_state='')", "設定window狀態:激活並最大化'MAX'、激活並最小化'MIN'、激活並視窗化''", "w.set_window_state(tmp_window_state='')"],
+    "設定寬高":['WindowMgr.py', '設定寬高(window_width,window_height)', '設定目標視窗的寬度及高度', 'w.set_window_width_height(window_width,window_height)'],
+    "休眠":['WindowMgr.py', '休眠(tmp_sec)', '程式暫停tmp_sec秒後執行，tmp_sec最小單位為0.1', 'w.sleep_a_while(tmp_sec)'],
+    "結束程序":['WindowMgr.py', '結束程序(process_name)', '### 用taskkill /f /im 的dos cmd強制目標程式結束運作 ###', 'w.end_process(process_name)'],
+    "重置":['WindowMgr.py', '重置()', '### 執行找視窗()後要找另一個目標視窗前，需先執行 重置() ###', 'w.reset()'],
+    "執行程式":['WindowMgr.py', "執行程式(program_loc, wildcard, program_param='')", '執行外部程式，先偵測程式是否已執行，若無才執行外部程式，程式執行後會把標題含wildcard字串的視窗設為目標視窗', "w.run_program( program_loc, wildcard, program_param='')"],
+    "設為最上層視窗":['WindowMgr.py', '設為最上層視窗(wildcard,win_w=320,win_h=240,set_top=True)', '可利用本函式將目標視窗設為永遠置頂(set_top=True)或不要永遠置頂(set_top=False)', 'w.set_window_on_top( wildcard,win_w=320,win_h=240,set_top=True)'],
+};
+</script>
+<script>
+let open_close_div=(tmp_str)=>{
+document.querySelector("."+tmp_str.replace("div","h3")).classList.toggle("on");
+document.querySelector("."+tmp_str).classList.toggle("invisible");
+};
+</script>
+<div class="Gui_title mod_title mod_title_on" onclick="open_close_div('Gui')">Gui.py</div>
+<div class="Gui">
+<h3 class="h3_0 func_btn" onclick="open_close_div('div_0')">找圖</h3><div class="div_0 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>找圖(img_url,seek_mode='infinite')</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>seek_mode若為'infinite'就會一直等，若為數字字串則會等N秒，例如seek_mode='2'會等圖2秒後跳出無限廻圈</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.seek_img_and_click(img_url,seek_mode='infinite')</div></div>
+<h3 class="h3_1 func_btn" onclick="open_close_div('div_1')">點滑鼠</h3><div class="div_1 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>點滑鼠(x_pos,y_pos,click_num=1,sec_between=0.2,btn='left')</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>點滑鼠函式說明</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.mouse_click(x_pos,y_pos,click_num=1,sec_between=0.2,btn='left')</div></div>
+<h3 class="h3_2 func_btn" onclick="open_close_div('div_2')">移動滑鼠</h3><div class="div_2 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>移動滑鼠(tx,ty,dur=1,coord='abs')</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>移動滑鼠(x,y,秒數,絕對或相對座標)</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.mouse_move(tx,ty,dur=1,coord='abs')</div></div>
+<h3 class="h3_3 func_btn" onclick="open_close_div('div_3')">拖拉滑鼠</h3><div class="div_3 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>拖拉滑鼠(tx,ty,dur=1,coord='abs',button='left')</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>拖拉滑鼠(x,y,秒數,絕對或相對座標,左鍵或右鍵)</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.mouse_drag(tx,ty,dur=1,coord='abs',button='left')</div></div>
+<h3 class="h3_4 func_btn" onclick="open_close_div('div_4')">滑鼠中鍵</h3><div class="div_4 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>滑鼠中鍵(amount_to_scroll,scroll_x=0,scroll_y=0)</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>amount_to_scroll正值往上滾動負值往下滾動</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.mouse_scroll(amount_to_scroll,scroll_x=0,scroll_y=0)</div></div>
+<h3 class="h3_5 func_btn" onclick="open_close_div('div_5')">按組合鍵</h3><div class="div_5 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>按組合鍵(tmp_hot_key,tmp_key)</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>按組合鍵函式說明</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.combo_key(tmp_hot_key,tmp_key)</div></div>
+<h3 class="h3_6 func_btn" onclick="open_close_div('div_6')">按鍵</h3><div class="div_6 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>按鍵(tmp_key,repeat=1)</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>按鍵函式說明</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.press_key(tmp_key,repeat=1)</div></div>
+<h3 class="h3_7 func_btn" onclick="open_close_div('div_7')">按連續鍵</h3><div class="div_7 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>按連續鍵(tmp_str,sec_between=0)</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>按連續鍵函式說明</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.typewrite(tmp_str,sec_between=0)</div></div>
+<h3 class="h3_8 func_btn" onclick="open_close_div('div_8')">彈出訊息</h3><div class="div_8 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>彈出訊息(tmp_msg,tmp_title='MESSAGE')</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>彈出函式說明</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.alert_msg(tmp_msg,tmp_title='MESSAGE')</div></div>
+<h3 class="h3_9 func_btn" onclick="open_close_div('div_9')">複制到暫存區</h3><div class="div_9 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>複制到暫存區(tmp_str)</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>複制到暫存區函式說明</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.copy_to_clipboard(tmp_str)</div></div>
+<h3 class="h3_10 func_btn" onclick="open_close_div('div_10')">當前時間</h3><div class="div_10 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>當前時間(t_str="%Y%m%d%H%M%S")</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span> 傳回當前日期時間，可用t_str決定輸出的日期時間格式，若t_str為空白則直接輸出年月日時分秒。<br/> exam: YYYYmmddHHmmss 20201023083159 </div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.current_date_time(t_str="%Y%m%d%H%M%S")</div></div>
+<h3 class="h3_11 func_btn" onclick="open_close_div('div_11')">當前滑鼠XY</h3><div class="div_11 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>當前滑鼠XY()</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>傳回當前滑鼠XY座標，例如:x,y=當前滑鼠XY()</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.mouse_xy()</div></div>
+<h3 class="h3_12 func_btn" onclick="open_close_div('div_12')">螢幕解析度</h3><div class="div_12 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>螢幕解析度()</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span> 傳回螢幕[width,height] exam: w,h=螢幕解析度() </div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.screen_resolution()</div></div>
+<h3 class="h3_13 func_btn" onclick="open_close_div('div_13')">螢幕截圖</h3><div class="div_13 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>螢幕截圖(save_loc='圖檔名稱')</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>將當前螢幕截圖，若無'圖檔名稱'則傳回螢幕截圖的圖資，可供PIL作後續處理</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>g.print_screen(save_loc='')</div></div>
+</div><div class="WindowMgr_title  mod_title mod_title_on" onclick="open_close_div('WindowMgr')">WindowMgr.py</div>
+<div class="WindowMgr">
+<h3 class="h3_14 func_btn" onclick="open_close_div('div_14')">找視窗</h3><div class="div_14 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>找視窗(wildcard)</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>找到標題內含wildcard字串的視窗</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.find_window_wildcard( wildcard)</div></div>
+<h3 class="h3_15 func_btn" onclick="open_close_div('div_15')">設cmd標題</h3><div class="div_15 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>設cmd標題(cmd_title)</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>設置cmd視窗的標題</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.set_cmd_title(cmd_title)</div></div>
+<h3 class="h3_16 func_btn" onclick="open_close_div('div_16')">設為前景</h3><div class="div_16 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>設為前景()</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>將目標視窗設為前景</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.set_foreground()</div></div>
+<h3 class="h3_17 func_btn" onclick="open_close_div('div_17')">調視窗</h3><div class="div_17 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>調視窗(tmp_window_state='')</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>設定window狀態:激活並最大化'MAX'、激活並最小化'MIN'、激活並視窗化''</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.set_window_state(tmp_window_state='')</div></div>
+<h3 class="h3_18 func_btn" onclick="open_close_div('div_18')">設定寬高</h3><div class="div_18 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>設定寬高(window_width,window_height)</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>設定目標視窗的寬度及高度</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.set_window_width_height(window_width,window_height)</div></div>
+<h3 class="h3_19 func_btn" onclick="open_close_div('div_19')">休眠</h3><div class="div_19 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>休眠(tmp_sec)</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>程式暫停tmp_sec秒後執行，tmp_sec最小單位為0.1</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.sleep_a_while(tmp_sec)</div></div>
+<h3 class="h3_20 func_btn" onclick="open_close_div('div_20')">結束程序</h3><div class="div_20 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>結束程序(process_name)</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span> 用taskkill /f /im 的dos cmd強制目標程式結束運作 </div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.end_process(process_name)</div></div>
+<h3 class="h3_21 func_btn" onclick="open_close_div('div_21')">重置</h3><div class="div_21 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>重置()</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span> 執行找視窗()後要找另一個目標視窗前，需先執行 重置() </div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.reset()</div></div>
+<h3 class="h3_22 func_btn" onclick="open_close_div('div_22')">執行程式</h3><div class="div_22 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>執行程式(program_loc, wildcard, program_param='')</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>執行外部程式，先偵測程式是否已執行，若無才執行外部程式，程式執行後會把標題含wildcard字串的視窗設為目標視窗</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.run_program( program_loc, wildcard, program_param='')</div></div>
+<h3 class="h3_23 func_btn" onclick="open_close_div('div_23')">設為最上層視窗</h3><div class="div_23 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>設為最上層視窗(wildcard,win_w=320,win_h=240,set_top=True)</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>可利用本函式將目標視窗設為永遠置頂(set_top=True)或不要永遠置頂(set_top=False)</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.set_window_on_top( wildcard,win_w=320,win_h=240,set_top=True)</div></div>
+</div>
+</body></html>

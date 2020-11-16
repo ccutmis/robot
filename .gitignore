@@ -1,0 +1,11 @@
+Scripts/*
+Lib/*
+foxModules/*.pyc
+foxModules/__pycache__/*
+dist/*
+build/*
+__pycache__/*
+*.spec
+*.exe
+*.pyc
+*.txt
