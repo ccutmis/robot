@@ -53,7 +53,7 @@ robot自動化程式有三種執行方式:
 
 -----
 
-# Robot 取得方式
+# Robot 取得方式:
 
 1. 下載主程式(支援Windows7 SP1 及 Windows10 的64位元版本) [下載robot主程式](https://ccutmis.github.io/robot.zip)
 
