@@ -55,9 +55,9 @@ robot自動化程式有三種執行方式:
 
 # Robot 取得方式
 
-1. 下載主程式(支援Windows7 SP1 及 Windows10 的64位元版本) [下載robot主程式](http://www.web3d.url.tw/robot/robot-exe.zip)
+1. 下載主程式(支援Windows7 SP1 及 Windows10 的64位元版本) [下載robot主程式](https://ccutmis.github.io/robot.zip)
 
-2. 若對主程式的安全有顧慮也可以下載原始碼自行用Pyinstaller編釋成執行檔 [下載robot原始檔](http://www.web3d.url.tw/robot/robot-source-code.zip)
+2. 若對主程式的安全有顧慮也可以下載原始碼自行用Pyinstaller編釋成執行檔 [下載robot原始檔](https://ccutmis.github.io/robot-source-code.zip)
 
 -----
 
