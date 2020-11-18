@@ -1,6 +1,6 @@
 from datetime import datetime
 import pyautogui, pyperclip,PIL, time
-pyautogui.PAUSE =0.2
+pyautogui.PAUSE =0.1
 pyautogui.FAILSAFE=True
 class Gui:
     """ 建構式 """
