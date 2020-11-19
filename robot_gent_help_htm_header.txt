@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="zh-tw"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /><meta http-equiv="X-UA-Compatible" content="ie=edge">
+<style>
+*,html{margin:0;padding:0;font-size:1.1em;background:#aaa;}
+h3,div{padding:0.2em;}
+div.mod_title{background:#999;color:#ccc;font-size:1.5em;padding:0.5em;text-align:center;border-top:solid 1px #aaa;}
+div.mod_title_on{background:#333;color:#efefef;}
+h3.on,div.on{background:#ff0;}
+h3.func_btn{border-radius:10px 10px 0px 0px;padding:0.5em;}
+div.invisible{display:none;}
+div.func_desc{padding:0px;margin-bottom:10px;}
+.func_desc3,.func_desc2,.func_desc1{color:#ccc;background:#666;padding:0.5em;}
+.desc_sub_title{padding:0.3em;font-size:0.9em;background:#333;border-radius:0.5em;margin:1em;}
+.func_desc3{border-radius:0px 0px 10px 10px;}
+</style>
+</head><body>
