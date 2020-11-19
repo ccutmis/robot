@@ -7,6 +7,7 @@ Lib/*
 Scripts/*
 *.spec
 *.exe
+*.zip
 *.pyc
 *.txt
 *.cfg
