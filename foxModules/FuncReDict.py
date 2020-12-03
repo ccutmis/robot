@@ -16,6 +16,8 @@ func_re_dict={
     "螢幕截圖":"g.print_screen",
     "找視窗":"w.find_window_wildcard",
     "設cmd標題":"w.set_cmd_title",
+    "當前視窗標題":"w.active_window_title",
+    "視窗座標寬高":"w.get_window_pos_size",
     "設為前景":"w.set_foreground",
     "調視窗":"w.set_window_state",
     "設定寬高":"w.set_window_width_height",

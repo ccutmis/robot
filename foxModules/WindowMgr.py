@@ -30,6 +30,24 @@ class WindowMgr:
         ctypes.windll.kernel32.SetConsoleTitleW(cmd_title)
         sleep(2)
 
+    """ 當前視窗標題() """
+    ### 獲取當前視窗完整標題，傳回值為字串 ###
+    def active_window_title(self):
+        return win32gui.GetWindowText(win32gui.GetForegroundWindow())
+
+    """ 視窗座標寬高() """
+    ### 獲取視窗座標寬高，傳回值為陣列[x,y,w,h] ###
+    def get_window_pos_size(self):
+        rect = win32gui.GetWindowRect(self._handle)
+        x = rect[0]
+        y = rect[1]
+        w = rect[2] - x
+        h = rect[3] - y
+        print("Window %s:" % win32gui.GetWindowText(self._handle))
+        print("\tLocation: (%d, %d)" % (x, y))
+        print("\t    Size: (%d, %d)" % (w, h))
+        return [x,y,w,h]
+
     """ 設為前景() """
     ### 將目標視窗設為前景 ###
     def set_foreground(self):
