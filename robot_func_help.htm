@@ -41,6 +41,7 @@ func_re_dict={
     "重置":['WindowMgr.py', '重置()', '### 執行找視窗()後要找另一個目標視窗前，需先執行 重置() ###', 'w.reset()'],
     "執行程式":['WindowMgr.py', "執行程式(program_loc, wildcard, program_param='')", '執行外部程式，先偵測程式是否已執行，若無才執行外部程式，程式執行後會把標題含wildcard字串的視窗設為目標視窗', "w.run_program( program_loc, wildcard, program_param='')"],
     "設為最上層視窗":['WindowMgr.py', '設為最上層視窗(wildcard,win_w=320,win_h=240,set_top=True)', '可利用本函式將目標視窗設為永遠置頂(set_top=True)或不要永遠置頂(set_top=False)', 'w.set_window_on_top( wildcard,win_w=320,win_h=240,set_top=True)'],
+    "半透明視窗":['WindowMgr.py', '半透明視窗(wildcard,alpha_val=180)', '將目標視窗設為半透明狀態(alpha_val值範圍0-255)', 'w.set_window_alpha( wildcard, alpha_val=180)'],
 };
 </script>
 <script>
@@ -79,5 +80,6 @@ document.querySelector("."+tmp_str).classList.toggle("invisible");
 <h3 class="h3_23 func_btn" onclick="open_close_div('div_23')">重置</h3><div class="div_23 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>重置()</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span> 執行找視窗()後要找另一個目標視窗前，需先執行 重置() </div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.reset()</div></div>
 <h3 class="h3_24 func_btn" onclick="open_close_div('div_24')">執行程式</h3><div class="div_24 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>執行程式(program_loc, wildcard, program_param='')</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>執行外部程式，先偵測程式是否已執行，若無才執行外部程式，程式執行後會把標題含wildcard字串的視窗設為目標視窗</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.run_program( program_loc, wildcard, program_param='')</div></div>
 <h3 class="h3_25 func_btn" onclick="open_close_div('div_25')">設為最上層視窗</h3><div class="div_25 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>設為最上層視窗(wildcard,win_w=320,win_h=240,set_top=True)</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>可利用本函式將目標視窗設為永遠置頂(set_top=True)或不要永遠置頂(set_top=False)</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.set_window_on_top( wildcard,win_w=320,win_h=240,set_top=True)</div></div>
+<h3 class="h3_26 func_btn" onclick="open_close_div('div_26')">半透明視窗</h3><div class="div_26 invisible func_desc"><div class="func_desc1"><span class="desc_sub_title">語法範例</span>半透明視窗(wildcard,alpha_val=180)</div><div class="func_desc2"><span class="desc_sub_title">用法說明</span>將目標視窗設為半透明狀態(alpha_val值範圍0-255)</div><div class="func_desc3"><span class="desc_sub_title">函式原形</span>w.set_window_alpha( wildcard, alpha_val=180)</div></div>
 </div>
 </body></html>

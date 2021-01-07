@@ -26,5 +26,6 @@ func_re_dict={
     "重置":"w.reset",
     "執行程式":"w.run_program",
     "設為最上層視窗":"w.set_window_on_top",
+    "半透明視窗":"w.set_window_alpha",
     "#.*?\n":"\n"
 }
