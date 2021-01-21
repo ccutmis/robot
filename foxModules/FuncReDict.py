@@ -22,6 +22,7 @@ func_re_dict={
     "調視窗":"w.set_window_state",
     "設定寬高":"w.set_window_width_height",
     "休眠":"w.sleep_a_while",
+    "關閉當前視窗":"w.close_current_window",
     "結束程序":"w.end_process",
     "重置":"w.reset",
     "執行程式":"w.run_program",
