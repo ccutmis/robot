@@ -66,3 +66,9 @@ robot自動化程式有三種執行方式:
 # robot_script.txt 編輯工具
 
 基本上只要是能編輯utf-8編碼的純文件編輯器都可以使用(不建議使用微軟內建的記事本，存檔有時會自己把編碼變成utf-8 BOM或Big5造成執行失敗，如果你用記事本編輯的文字檔在執行時發生錯誤，請檢查文字檔的文件編碼是否為'utf-8'格式，不可為'utf-8 BOM'或其它編碼)，在此推薦一套由台灣團隊研發的免費軟體 Notepad++ [下載 Notepad++](https://notepad-plus-plus.org/downloads/)
+
+# 依賴套件(如果是用robot.py執行會需要安裝下列套件):
+* pywin32 (pip install pypiwin32)
+* pyautogui (pip install pyautogui)
+* PIL (pip install pillow)
+
